@@ -3,7 +3,7 @@
 I have used the preprocessing scripts and dataset scripts provided in https://github.com/goutamgmb/NTIRE21_BURSTSR and added my implementation of Deep Burst Super Resolution model and corresponding training and evaluation scripts.
 
 
-## This repos has been forked from: https://github.com/goutamgmb/NTIRE21_BURSTSR 
+### ** This repos has been forked from: https://github.com/goutamgmb/NTIRE21_BURSTSR  **
 
 ## Table of contents 
 * [Introduction](#introduction)
