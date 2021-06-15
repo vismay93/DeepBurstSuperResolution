@@ -58,6 +58,7 @@ def rgb2rawburst(image, burst_size, downsample_factor=1, burst_transformation_pa
         image_processing_params = {}
 
     _defaults = {'random_ccm': True, 'random_gains': True, 'smoothstep': True, 'gamma': True, 'add_noise': True}
+    image_org = image
     for k, v in _defaults.items():
         if k not in image_processing_params:
             image_processing_params[k] = v
@@ -117,7 +118,7 @@ def rgb2rawburst(image, burst_size, downsample_factor=1, burst_transformation_pa
     meta_info = {'rgb2cam': rgb2cam, 'cam2rgb': cam2rgb, 'rgb_gain': rgb_gain, 'red_gain': red_gain,
                  'blue_gain': blue_gain, 'smoothstep': use_smoothstep, 'gamma': use_gamma,
                  'shot_noise_level': shot_noise_level, 'read_noise_level': read_noise_level}
-    return image_burst, image, image_burst_rgb, flow_vectors, meta_info
+    return image_burst, image_org, image_burst_rgb, flow_vectors, meta_info
 
 
 def get_tmat(image_shape, translation, theta, shear_values, scale_factors):
@@ -252,6 +253,6 @@ def single2lrburst(image, burst_size, downsample_factor=1, transformation_params
     sample_pos_inv_all = torch.stack(sample_pos_inv_all)
 
     # Compute the flow vectors to go from the i'th burst image to the base image
-    flow_vectors = sample_pos_inv_all - sample_pos_inv_all[:, :1, ...]
+    flow_vectors = sample_pos_inv_all - sample_pos_inv_all[:1, ...]
 
     return burst_images, flow_vectors
