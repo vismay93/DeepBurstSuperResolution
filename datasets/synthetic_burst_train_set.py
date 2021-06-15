@@ -21,8 +21,8 @@ class SyntheticBurst(torch.utils.data.Dataset):
         self.transform = transform
 
         self.downsample_factor = 4
-        self.burst_transformation_params = {'max_translation': 24.0,
-                                            'max_rotation': 1.0,
+        self.burst_transformation_params = {'max_translation': 10.0,
+                                            'max_rotation': 10.0,
                                             'max_shear': 0.0,
                                             'max_scale': 0.0,
                                             'border_crop': 24}
@@ -87,4 +87,5 @@ class SyntheticBurst(torch.utils.data.Dataset):
             border_crop = self.burst_transformation_params.get('border_crop')
             frame_gt = frame_gt[:, border_crop:-border_crop, border_crop:-border_crop]
 
+        flow_vectors = torch.nn.functional.interpolate(-flow_vectors/2, scale_factor=0.5, mode='bilinear')
         return burst, frame_gt, flow_vectors, meta_info
